@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Dashboard seguro - Área protegida">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <title>Secure App - Dashboard</title>
+</head>
+<body class="dashboard-page">
+    <!-- Background -->
+    <div class="bg-animation dashboard-bg">
+        <div class="bg-gradient"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-brand">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+            <span>SecureApp</span>
+        </div>
+
+        <div class="nav-user" id="navUser">
+            <div class="user-avatar" id="userAvatar">
+                <span>U</span>
+            </div>
+            <span class="user-name" id="userName">Usuario</span>
+            <button class="nav-menu-btn" id="navMenuBtn" aria-label="Menú">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="nav-dropdown" id="navDropdown">
+            <a href="#" class="dropdown-item" id="profileLink">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Mi Perfil</span>
+            </a>
+            <a href="#" class="dropdown-item" id="securityLink">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>Seguridad</span>
+            </a>
+            <hr class="dropdown-divider">
+            <a href="#" class="dropdown-item logout" id="logoutBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                <span>Cerrar Sesión</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-content">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="welcome-text">
+                <h1>Bienvenido, <span id="welcomeName">Usuario</span></h1>
+                <p>Tu cuenta está protegida con seguridad de nivel empresarial</p>
+            </div>
+            <div class="welcome-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span>Sesión Verificada</span>
+            </div>
+        </section>
+
+        <!-- Stats Grid -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <h3>Estado de Seguridad</h3>
+                    <p class="stat-value green">Protegido</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <h3>Última Sesión</h3>
+                    <p class="stat-value" id="lastSession">Ahora</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple" id="biometricStatusIcon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2c0 .7.4 1.4 1 1.7V14h2v-1.3c.6-.3 1-1 1-1.7z"/>
+                        <path d="M7 3v2.4A5.5 5.5 0 002 11c0 2.6 1.8 4.7 4.2 5.3.2 1.6 1.6 2.7 3.1 2.7H11v2h2v-2h1.7c1.5 0 2.9-1.1 3.1-2.7 2.4-.6 4.2-2.7 4.2-5.3 0-2.5-1.7-4.5-4-5.2V3h-2v1.1c-.6-.1-1.3-.1-2-.1s-1.4 0-2 .1V3H7z"/>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <h3>Biometría</h3>
+                    <p class="stat-value" id="biometricStatus">Verificando...</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0110 0v4"/>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <h3>Cifrado</h3>
+                    <p class="stat-value">AES-256</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Panels -->
+        <section class="panels-grid">
+            <!-- Security Panel -->
+            <div class="panel security-panel">
+                <div class="panel-header">
+                    <h2>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        Centro de Seguridad
+                    </h2>
+                </div>
+                <div class="panel-content">
+                    <div class="security-checklist">
+                        <div class="check-item checked">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <span>Contraseña segura configurada</span>
+                        </div>
+                        <div class="check-item checked">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <span>Email verificado</span>
+                        </div>
+                        <div class="check-item" id="biometricCheckItem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            <span>Autenticación biométrica</span>
+                        </div>
+                        <div class="check-item checked">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <span>Conexión cifrada HTTPS</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-setup-biometric" id="setupBiometricDashboard" style="display: none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2c0 .7.4 1.4 1 1.7V14h2v-1.3c.6-.3 1-1 1-1.7z"/>
+                            <path d="M7 3v2.4A5.5 5.5 0 002 11c0 2.6 1.8 4.7 4.2 5.3.2 1.6 1.6 2.7 3.1 2.7H11v2h2v-2h1.7c1.5 0 2.9-1.1 3.1-2.7 2.4-.6 4.2-2.7 4.2-5.3 0-2.5-1.7-4.5-4-5.2V3h-2v1.1c-.6-.1-1.3-.1-2-.1s-1.4 0-2 .1V3H7z"/>
+                        </svg>
+                        Configurar Biometría
+                    </button>
+                </div>
+            </div>
+
+            <!-- Activity Panel -->
+            <div class="panel activity-panel">
+                <div class="panel-header">
+                    <h2>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                        Actividad Reciente
+                    </h2>
+                </div>
+                <div class="panel-content">
+                    <div class="activity-list" id="activityList">
+                        <div class="activity-item">
+                            <div class="activity-icon green">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/>
+                                    <polyline points="10 17 15 12 10 7"/>
+                                    <line x1="15" y1="12" x2="3" y2="12"/>
+                                </svg>
+                            </div>
+                            <div class="activity-info">
+                                <p>Inicio de sesión exitoso</p>
+                                <span>Ahora mismo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Devices Section -->
+        <section class="devices-section">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                            <line x1="12" y1="18" x2="12.01" y2="18"/>
+                        </svg>
+                        Dispositivos Biométricos Registrados
+                    </h2>
+                </div>
+                <div class="panel-content">
+                    <div class="devices-list" id="devicesList">
+                        <div class="no-devices" id="noDevicesMessage">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2c0 .7.4 1.4 1 1.7V14h2v-1.3c.6-.3 1-1 1-1.7z"/>
+                                <path d="M7 3v2.4A5.5 5.5 0 002 11c0 2.6 1.8 4.7 4.2 5.3.2 1.6 1.6 2.7 3.1 2.7H11v2h2v-2h1.7c1.5 0 2.9-1.1 3.1-2.7 2.4-.6 4.2-2.7 4.2-5.3 0-2.5-1.7-4.5-4-5.2V3h-2v1.1c-.6-.1-1.3-.1-2-.1s-1.4 0-2 .1V3H7z"/>
+                            </svg>
+                            <p>No hay dispositivos biométricos registrados</p>
+                            <button class="btn btn-add-device" id="addDeviceBtn">
+                                Agregar Dispositivo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Session Info -->
+        <section class="session-info">
+            <div class="session-card">
+                <div class="session-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <div class="session-details">
+                    <h4>Sesión Actual</h4>
+                    <p>Token expira en: <span id="tokenExpiry">15:00</span></p>
+                    <p class="session-tip">La sesión se renueva automáticamente</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="footer-security">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+            </svg>
+            <span>Protegido con cifrado de extremo a extremo</span>
+        </div>
+        <p>&copy; 2024 SecureApp. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <svg class="spinner" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@simplewebauthn/browser@9.0.1/dist/bundle/index.umd.min.js"></script>
+    <script src="js/auth.js"></script>
+
+    <script>
+        // Inicializar dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            Auth.init('dashboard');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Crear cuenta segura con autenticación biométrica">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <title>Secure App - Crear Cuenta</title>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-gradient"></div>
+        <div class="bg-particles" id="particles"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="auth-container">
+        <!-- Security Badge -->
+        <div class="security-badge">
+            <svg class="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+            </svg>
+            <span>Registro Seguro</span>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                    <circle cx="8.5" cy="7" r="4"/>
+                    <line x1="20" y1="8" x2="20" y2="14"/>
+                    <line x1="23" y1="11" x2="17" y2="11"/>
+                </svg>
+            </div>
+            <h1>Crear Cuenta</h1>
+            <p class="tagline">Protege tu cuenta desde el inicio</p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps" id="progressSteps">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <span>Datos</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <span>Biometría</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <span>Listo</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Registration Form -->
+        <form id="registerForm" class="auth-form" autocomplete="off">
+            <!-- Username Input -->
+            <div class="input-group">
+                <div class="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Nombre de usuario"
+                    required
+                    minlength="3"
+                    maxlength="30"
+                    pattern="^[a-zA-Z0-9_]+$"
+                    autocomplete="username"
+                    aria-label="Nombre de usuario"
+                >
+                <div class="input-focus"></div>
+            </div>
+            <p class="input-hint">3-30 caracteres. Solo letras, números y guiones bajos.</p>
+
+            <!-- Email Input -->
+            <div class="input-group">
+                <div class="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                </div>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Correo electrónico"
+                    required
+                    autocomplete="email"
+                    aria-label="Correo electrónico"
+                >
+                <div class="input-focus"></div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="input-group">
+                <div class="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0110 0v4"/>
+                    </svg>
+                </div>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    required
+                    minlength="8"
+                    autocomplete="new-password"
+                    aria-label="Contraseña"
+                >
+                <button type="button" class="toggle-password" aria-label="Mostrar contraseña">
+                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                        <line x1="1" y1="1" x2="23" y2="23"/>
+                    </svg>
+                </button>
+                <div class="input-focus"></div>
+            </div>
+
+            <!-- Password Strength -->
+            <div class="password-strength" id="passwordStrength">
+                <div class="strength-bar">
+                    <div class="strength-fill" id="strengthFill"></div>
+                </div>
+                <span class="strength-text" id="strengthText">Ingresa una contraseña</span>
+            </div>
+
+            <!-- Password Requirements -->
+            <div class="password-requirements" id="passwordRequirements">
+                <div class="requirement" data-req="length">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Mínimo 8 caracteres</span>
+                </div>
+                <div class="requirement" data-req="uppercase">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Una mayúscula</span>
+                </div>
+                <div class="requirement" data-req="lowercase">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Una minúscula</span>
+                </div>
+                <div class="requirement" data-req="number">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Un número</span>
+                </div>
+                <div class="requirement" data-req="special">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Un carácter especial (@$!%*?&)</span>
+                </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-group">
+                <div class="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirmar contraseña"
+                    required
+                    autocomplete="new-password"
+                    aria-label="Confirmar contraseña"
+                >
+                <div class="input-focus"></div>
+            </div>
+
+            <!-- Terms -->
+            <label class="checkbox-container terms">
+                <input type="checkbox" id="acceptTerms" name="acceptTerms" required>
+                <span class="checkmark"></span>
+                <span>Acepto los <a href="#" class="link">términos de servicio</a> y la <a href="#" class="link">política de privacidad</a></span>
+            </label>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" role="alert" aria-live="polite"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary" id="registerBtn">
+                <span class="btn-text">Crear Cuenta</span>
+                <span class="btn-loader">
+                    <svg class="spinner" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"/>
+                    </svg>
+                </span>
+            </button>
+        </form>
+
+        <!-- Step 2: Biometric Setup (Hidden initially) -->
+        <div id="biometricSetup" class="biometric-setup" style="display: none;">
+            <div class="biometric-animation">
+                <div class="fingerprint-scanner">
+                    <svg viewBox="0 0 100 100" class="fingerprint-svg">
+                        <path class="fp-line" d="M50 10 Q80 50 50 90"/>
+                        <path class="fp-line" d="M40 15 Q70 50 40 85"/>
+                        <path class="fp-line" d="M30 25 Q55 50 30 75"/>
+                        <path class="fp-line" d="M60 15 Q90 50 60 85"/>
+                        <path class="fp-line" d="M70 25 Q95 50 70 75"/>
+                        <circle class="fp-center" cx="50" cy="50" r="5"/>
+                    </svg>
+                    <div class="scan-line"></div>
+                </div>
+            </div>
+
+            <h2>Configura la Biometría</h2>
+            <p class="biometric-desc">
+                Añade Face ID, Touch ID o huella dactilar para un acceso más rápido y seguro.
+            </p>
+
+            <div class="biometric-features">
+                <div class="bio-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    <span>Inicio de sesión instantáneo</span>
+                </div>
+                <div class="bio-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Máxima seguridad</span>
+                </div>
+                <div class="bio-feature">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0110 0v4"/>
+                    </svg>
+                    <span>Sin contraseñas</span>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-biometric-setup" id="setupBiometricBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2c0 .7.4 1.4 1 1.7V14h2v-1.3c.6-.3 1-1 1-1.7z"/>
+                    <path d="M7 3v2.4A5.5 5.5 0 002 11c0 2.6 1.8 4.7 4.2 5.3.2 1.6 1.6 2.7 3.1 2.7H11v2h2v-2h1.7c1.5 0 2.9-1.1 3.1-2.7 2.4-.6 4.2-2.7 4.2-5.3 0-2.5-1.7-4.5-4-5.2V3h-2v1.1c-.6-.1-1.3-.1-2-.1s-1.4 0-2 .1V3H7z"/>
+                </svg>
+                <span>Configurar Biometría</span>
+            </button>
+
+            <button type="button" class="btn btn-secondary" id="skipBiometricBtn">
+                Configurar después
+            </button>
+        </div>
+
+        <!-- Step 3: Success (Hidden initially) -->
+        <div id="successMessage" class="success-message" style="display: none;">
+            <div class="success-animation">
+                <svg class="checkmark" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <h2>¡Cuenta Creada!</h2>
+            <p>Tu cuenta está protegida con las mejores medidas de seguridad.</p>
+            <button type="button" class="btn btn-primary" id="goToDashboardBtn">
+                Ir al Dashboard
+            </button>
+        </div>
+
+        <!-- Login Link -->
+        <p class="auth-switch">
+            ¿Ya tienes cuenta?
+            <a href="/">Iniciar sesión</a>
+        </p>
+
+        <!-- Security Features -->
+        <div class="security-features">
+            <div class="feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span>256-bit SSL</span>
+            </div>
+            <div class="feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0110 0v4"/>
+                </svg>
+                <span>Bcrypt Hash</span>
+            </div>
+            <div class="feature">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <span>WebAuthn</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@simplewebauthn/browser@9.0.1/dist/bundle/index.umd.min.js"></script>
+    <script src="js/auth.js"></script>
+
+    <script>
+        // Inicializar página de registro
+        document.addEventListener('DOMContentLoaded', () => {
+            Auth.init('register');
+        });
+    </script>
+</body>
+</html>
