@@ -23,19 +23,19 @@ const logger = require('../utils/logger');
 // =============================================================================
 
 /**
- * Rate limiter para endpoints de autenticación
- * Máximo 5 intentos por minuto por IP
+ * Rate limiter general para la API
+ * Límite alto para uso normal, los endpoints sensibles tienen su propio limiter
  */
 const rateLimiter = rateLimit({
     windowMs: 60 * 1000, // 1 minuto
-    max: 5, // 5 intentos
+    max: 100, // 100 peticiones por minuto (suficiente para navegación normal)
     standardHeaders: true,
     legacyHeaders: false,
-    skipSuccessfulRequests: false,
+    skipSuccessfulRequests: true, // No contar peticiones exitosas
 
     // Mensaje personalizado
     message: {
-        error: 'Demasiados intentos. Por favor, espera 1 minuto antes de intentar de nuevo.',
+        error: 'Demasiadas solicitudes. Por favor, espera un momento.',
         code: 'RATE_LIMIT_EXCEEDED',
         retryAfter: 60
     },
@@ -61,20 +61,21 @@ const rateLimiter = rateLimit({
         return req.ip || req.connection.remoteAddress;
     },
 
-    // Saltar para ciertas rutas
+    // Saltar para ciertas rutas GET (recursos estáticos y verificaciones)
     skip: (req) => {
-        // No aplicar rate limit a rutas públicas estáticas
-        const publicRoutes = ['/api/health', '/api/csrf-token'];
-        return publicRoutes.includes(req.path);
+        // No aplicar rate limit a rutas públicas estáticas y GET
+        const publicRoutes = ['/api/health', '/api/csrf-token', '/api/auth/me'];
+        return publicRoutes.includes(req.path) || req.method === 'GET';
     }
 });
 
 /**
- * Rate limiter más estricto para login
+ * Rate limiter estricto para login y registro
+ * 5 intentos por minuto para prevenir fuerza bruta
  */
 const loginRateLimiter = rateLimit({
     windowMs: 60 * 1000, // 1 minuto
-    max: 3, // Solo 3 intentos de login por minuto
+    max: 5, // 5 intentos de login/registro por minuto
     standardHeaders: true,
     legacyHeaders: false,
 

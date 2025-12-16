@@ -347,14 +347,22 @@ module.exports.db = db;
 
 // Limpiar desafíos expirados periódicamente
 setInterval(() => {
-    const stmt = db.prepare('DELETE FROM webauthn_challenges WHERE expires_at < datetime("now")');
-    stmt.run();
+    try {
+        const stmt = db.prepare("DELETE FROM webauthn_challenges WHERE expires_at < datetime('now')");
+        stmt.run();
+    } catch (err) {
+        console.error('Error limpiando challenges:', err.message);
+    }
 }, 60000); // Cada minuto
 
 // Limpiar tokens de refresh expirados
 setInterval(() => {
-    const stmt = db.prepare('DELETE FROM refresh_tokens WHERE expires_at < datetime("now")');
-    stmt.run();
+    try {
+        const stmt = db.prepare("DELETE FROM refresh_tokens WHERE expires_at < datetime('now')");
+        stmt.run();
+    } catch (err) {
+        console.error('Error limpiando tokens:', err.message);
+    }
 }, 3600000); // Cada hora
 
 // Iniciar servidor
